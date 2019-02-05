@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		        <link rel="stylesheet" href="stylo.css">
+        <title>Mostrar ocultr</title>
+        
+        <style>
+		/*ocultamos los 2 al principio*/
+		#uno, #dos{display:none;}
+    li{cursor:pointer; display:inline;}
+		.blanco{/* hay ke poner los 2 estados para ir intercambiandolos. sino se keda marcado foreva*/
+			background-color:white;
+		}
+		.azul{
+			background-color:indigo;
+		}
+        </style>
+    
+	<script>
+		function mostrarUno(){
+			var uno=document.getElementById("uno");
+			uno.style.display="block";
+			var dos=document.getElementById("dos");
+			dos.style.display="none";
+				document.getElementById("Uno").className="azul";
+				document.getElementById("Dos").className="blanco";
+				document.getElementById("tre").className="blanco";
+		
+		}
+				function mostrarDos(){
+			var uno=document.getElementById("dos");
+			uno.style.display="block";
+			var dos=document.getElementById("uno");
+			dos.style.display="none";
+			document.getElementById("Dos").className="azul";
+			document.getElementById("Uno").className="blanco";
+			document.getElementById("tre").className="blanco";
+
+		}
+		function ocultar(){
+						var uno=document.getElementById("uno");
+			uno.style.display="none";
+			var dos=document.getElementById("dos");
+			dos.style.display="none";
+			document.getElementById("Uno").className="blanco";
+			document.getElementById("Dos").className="blanco";
+			document.getElementById("tre").className="azul";
+		}
+	</script>
+	</head>
+    <body>
+        <h1>Hello </h1>
+		<ol>
+		<li id="Uno" onClick="mostrarUno();">mostrar 1</li>
+		<li id="Dos"onClick="mostrarDos();">mostrar 2</li>
+			<li id="tre" onClick="ocultar();">Ocultar TODOS </li>
+		</ol>
+       <div id="uno">
+		 <fieldset>
+                        <legend>Insertar Libro</legend>
+          Nombre:  <input name="nombre" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="Nombre">
+          Autor:  <input name="autor" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="autor/es">
+    
+          <input type="submit" value="insertar" >
+                         </fieldset>
+	   
+		</div>
+
+	    <div id="dos">
+			<fieldset>
+                        <legend>No Libro</legend>
+         
+          ISBN:  <input name="is" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="ISBN">
+          situacion:  prestado<input type="radio"name="sit" value="prestado"><br>
+
+          <input type="hidden"  name="accion" value="insertar">
+          <input type="submit" value="insertar" >
+                         </fieldset>
+	   </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+        <title>Validacion DNI js</title>
+        
+       <script>
+	   //no se ejecuto directo.. por eso el onload del body carga luego el oyete.. y es una funcion no dclaracion directa
+	   function cargarOyente(){
+			document.getElementById("dni").onclick=validarDni;//no se pork no leva corchetes aki
+	   
+	   }
+		function validarDni(){
+	    var dni= document.getElementById("dni").value;
+		//verificamos long
+		if(dni.length!=9){
+			alert("long incorrecta!");
+			return false;//pra ke pare jecucion de funcion con reultado
+			
+		}
+		var numDni=substr(0,8);//(incio, cuantos_chars)
+		//despues de comprobar nro digitos comprobomas ke ea unum
+		if(isNaN(numDni)){//true sk no es un nro. si es false seguimos
+			alert("Debe de ser un NRO!!!");
+		}
+		//comprobamos letra
+		//comprobamos letra primero k no ea num logo si es la correcta
+		var letra= dni.charat(8);//en la pos 8
+		if(isNaN(letra)==false){
+			//es un nro asi k salimos y alertamos
+			alert("No es una letra sikiera!!");
+		}
+		var resto=numDni%23;
+		var letras="";//esto podria ser array pero como al string se le puede buscar por pos empezando en 0 da =
+		var letra_correcta=letras.charAt(resto);
+		if(letra!=letra_correcta){
+			alert("letra incorrecta");
+			return false;
+		
+		}
+	   //le echo con returns(false) pero no necesita return true pork nadie escucha esta fucn
+	   alert("dni correcto");
+	   }
+	   
+	   </script>
+    </head>
+    <body onload="cargarOyente()">
+        <h1>Hello validar onclick oyente </h1>
+			<form>
+       <label for="si">SI</label>
+	  <input type="radio" name="P" id="dni" value="male" onclick="mostrarK()">
+			<input type="submit">
+		   </form>
+		   
+	   
+    </body>
+</html>
