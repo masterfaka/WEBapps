@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		        <link rel="stylesheet" href="stylo.css">
+				<script src="js/funciones.js"></script>
+        <title>Formulario js</title>
+        
+<style>
+form{width:600px;
+	margin :0 auto;
+}
+</style>
+    </head>
+    <body>
+
+<div class="w3-card-4">
+  <div class="w3-container w3-khaki">
+    <h2>Peticion</h2>
+  </div>
+  <button id="boton" onclick="hacerPeticion()">pedir</button>
+</div>
+<p id="temps"></p>
+</body>
+<script>
+//se debe de hacer algo so lo cuando el esado es ==4y el status=200 no 404
+function hacerPeticion(){
+	var url="https://www.aemet.es/xml/municipios/localidad_28092.xml";
+	//la url esta mal hay ke cojer un json no un xml
+	//open weather la solucion
+	
+	var peticion = new XMLHttpRequest();
+  peticion.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {//this es lo ke nos llega.. el estatus
+     //document.getElementById("demo").innerHTML = this.responseText;
+	 //logueamos todo por consola. this es lo ke nos llega
+	 
+	 console.log("readystate:"+this.readyState);
+	 console.log("status: "+this.status);
+	 console.log("XML:"+this.responseText);
+	 
+	 //parsear
+	 var obj_json=JSON.parse(this.responseText);
+	 var temp= obj_json.main.temp;
+	 var max= obj_json.main.temp_max;
+	 var min= obj_json.main.temp_min;
+	 document.getElementById("temps").innerHTML="max:"+max+", min: "+min;
+    }
+  };
+  peticion.open("GET", url, true);
+  peticion.send(); 
+
+}
+</script>
+
+</html>

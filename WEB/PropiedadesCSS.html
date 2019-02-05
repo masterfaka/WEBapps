@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <title>JSP Page</title>
+        
+        <style>
+            .formato{
+                padding: 10px; 
+                width: 400px;
+                
+                border-radius: 25px;
+                border-color: blue green ;
+                border-style: ridge;
+                box-sizing: border-box;
+                margin:0 auto;
+                background: graytext;
+                color:white;
+            }
+            input[type="submit"]{
+                
+                margin-left: 40%;}
+        </style>
+    </head>
+    <body>
+        <h1>Hello </h1>
+
+       <form action="Sevletbiblio" method="POST" >
+           
+     
+            <div class="formato">
+                    <fieldset>
+                        <legend>Insertar Libro</legend>
+          Nombre:  <input name="nombre" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="Nombre">
+          Autor:  <input name="autor" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="autor/es">
+          ISBN:  <input name="is" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="ISBN">
+          situacion:  prestado<input type="radio"name="sit" value="prestado"><br>
+          devuelto<input type="radio" name="sit" value="devuelto"><br>
+          <strong><span style="color:greenyellow;">
+                   </span></strong><br>
+          <input type="hidden"  name="accion" value="insertar">
+          <input type="submit" value="insertar" >
+                         </fieldset>
+        
+            </div>
+        </form>
+        <form action="Sevletbiblio" method="POST">
+                <fieldset>
+                  <legend>Listar Libros</legend>
+                   <input type="hidden"  name="accion" value="listar">
+                  <input type="submit" value="listar">
+                </fieldset>
+        </form>
+                <form action="Sevletbiblio" method="POST" class="formato">
+                <fieldset>
+                  <legend>buscar Libro</legend>
+                  Nombre:  <input name="nombre" class="w3-input w3-border w3-animate-input" type="text" style="width:40%"placeholder="Nombre">
+                  <input type="hidden"  name="accion" value="buscar">
+                  <input type="submit" value="buscarLibro">
+                </fieldset>
+               </form>
+                 <form action="Sevletbiblio" method="POST" >
+                <fieldset>
+                  <legend>XML</legend>
+                                   <input type="hidden"  name="accion" value="xml">
+                  <input type="submit" value="Crear XML">
+                </fieldset>
+                 </form>
+
+    </body>
+</html>

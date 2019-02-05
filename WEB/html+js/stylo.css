@@ -1,0 +1,21 @@
+body{
+	background:url("1.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+/*background-attachment: fixed;*/
+}
+@media only screen and (max-width: 600px) {
+	
+	body{
+	background:url("2.jpeg");
+	background-repeat:no-repeat;
+	background-size:cover;
+background-attachment: fixed;
+	}
+	.ocultable{
+		
+		display:none;
+	}
+	
+	
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<Title>JQUERY Pasapalabra</Title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+#respuesta_C{
+	display:block;
+}
+</style>
+<script>
+//$(selector).load(URL,data,callback); calback es dfunc ke se ejecuta al volver con los Data
+//separsea con JS pero la tabla se puede crear con jquery
+$(document).ready(function(){
+  $("button").click(function(){
+    $.get("http://formadorestic.com/pasapalabra/carga.php?IDpartida=3555", function(data, status){
+      if(status == "success"){//si ha vuelto parseamos; nos llega como documento(xmlJSON) 
+		//RECORDAR EL PARSEO
+	 	
+		var lista_preguntas=tratarXML(data);
+		console.log(lista_preguntas);
+		jugar(lista_preguntas);
+		//console.log(data);
+		//alert("Data: " + data + "\nStatus: " + status);
+		//crearTabla(lista_camaras);
+
+	  } 
+    });
+  });
+
+});
+//las func de Js se sacan fuera sino peta!!
+function tratarXML(texto_xml){ //powered by anita powa
+    /* este esta mal formado y llega como texto
+    por tanto hay ke onvertilo a objeto XML con DOmparser*/
+    var parser = new DOMParser();
+	console.log(texto_xml);
+    var xmlDoc = parser.parseFromString(texto_xml,"text/xml"); /*eesta linea lo convierte a doc xml
+	nos llega directamente como string y se usa el doc creado xmlDoc.getelement....
+	*/
+	var lista_preguntas = new Array();
+	var lista_obj_preguntas = xmlDoc.getElementsByTagName("pregunta");//no hace falta navegar
+	//pero si kisieramos especificamente si navegamos pok es mas exacto
+	//console.log(lista_obj_camara);
+	for (i=0; i<lista_obj_preguntas.length; i++)
+		{
+			var objeto_p = lista_obj_preguntas[i];
+			var letra=objeto_p.getElementsByTagName("letra")[0].childNodes[0].nodeValue;
+			var posicion=objeto_p.getElementsByTagName("posicion")[0].childNodes[0].nodeValue;
+			var definicion=objeto_p.getElementsByTagName("definicion")[0].childNodes[0].nodeValue;
+			var solucion=objeto_p.getElementsByTagName("solucion")[0].childNodes[0].nodeValue;
+
+			//var url="http://"+objeto_camara.getElementsByTagName("URL")[0].childNodes[0].nodeValue;
+			var pregunta = {letra: letra, pos: posicion, def: definicion, sol: solucion};
+			lista_preguntas.push(pregunta);
+			//console.log("Latitud: "+latitud+" Longitud: "+longitud+" URL: "+url);
+		}
+        return lista_preguntas;   
+         
+}
+function jugar(lista){
+
+	
+}
+
+
+</script>
+</head>
+<body >
+	<p id="pregunta"></p>
+<input type="text" id="respuesta"/>
+<button>comprobar</button>
+<input type="text" disabled id="respuesta_C" /><input type="text" disabled id="puntuacion" />
+</body>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2nnTwxI_6v6FgZQ_HYALbkWsL3qhFjT4">
+    </script>
+
+</html>

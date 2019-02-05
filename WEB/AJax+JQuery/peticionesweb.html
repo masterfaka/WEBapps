@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<Title>JQUERY+ ajax</Title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.capa_mapa
+{
+width: 500px;
+height:100px;
+}
+#capa_espera
+{
+width: 100%;
+display: none;
+}
+</style>
+<script>
+// write less do more""
+//quey= consulta
+//$(selector).load(URL,data,callback); calback es dfunc ke se ejecuta al volver con los Data
+//luego esta post y get
+//ej M30
+//separsea con JS pero la tabla se puede crear con jquery
+$(document).ready(function(){
+  $("button").click(function(){
+    $.get("https://www.mc30.es/components/com_hotspots/datos/camaras.xml", function(data, status){
+      if(status == "success"){//si ha vuelto parseamos; nos llega como documento(xmlJSON) 
+								//RECORDAR EL PARSEO
+	 
+		var lista_camaras=tratarXML(data);
+		
+		//console.log(data);
+		//alert("Data: " + data + "\nStatus: " + status);
+		crearTabla(lista_camaras);
+		cargarMapas(lista_camaras);
+		
+	  
+	  } 
+    });
+  });
+  
+ 
+  
+});
+//las func de Js se sacan fuera sino peta!!
+function tratarXML(texto_xml){ //powered by anita powa
+    /*var parser = new DOMParser();
+	
+	console.log(texto_xml);
+    var xmlDoc = parser.parseFromString(texto_xml,"text/xml"); eesta linea lo convierte a doc xml
+	nos llega directamente como documento xml y se puede acceder direco en vez de xmlDoc.getelement
+	
+	*/
+	var lista_camaras = new Array();
+	var lista_obj_camara = texto_xml.getElementsByTagName("Camara");
+	//console.log(lista_obj_camara);
+	for (i=0; i<lista_obj_camara.length; i++)
+		{
+			var objeto_camara = lista_obj_camara[i];
+			var latitud=objeto_camara.getElementsByTagName("Latitud")[0].childNodes[0].nodeValue;
+			var longitud=objeto_camara.getElementsByTagName("Longitud")[0].childNodes[0].nodeValue;
+			var url="http://"+objeto_camara.getElementsByTagName("URL")[0].childNodes[0].nodeValue;
+			var camara = {latitud: latitud, longitud: longitud, url: url};
+			lista_camaras.push(camara);
+			//console.log("Latitud: "+latitud+" Longitud: "+longitud+" URL: "+url);
+		}
+        return lista_camaras;   
+         
+}
+function crearTabla(lista_camaras){
+	var objeto_tabla=document.getElementById("table");
+	for (i=0; i<lista_camaras.length; i++){
+		var camara =lista_camaras[i];
+		console.log(camara.latitud);
+		
+		var obj_tr=document.createElement("tr");
+		obj_tr.innerHTML="<td><div class='capa_mapa' id='mapa"+i+"'></td><td><img width='100px' src="+camara.url+"></td>";
+		objeto_tabla.appendChild(obj_tr);
+	}
+}
+function cargarMapas(lista_camaras) {
+  for(j=0; j<lista_camaras.length; j++)
+  {
+  var camara=lista_camaras[j];
+  var posicion={lat:camara.latitud*1, lng:camara.longitud*1}
+  var map = new google.maps.Map(
+      document.getElementById('mapa'+j), {zoom: 12, center: posicion});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: posicion, map: map});
+  }
+}
+</script>
+</head>
+<body >
+
+<button>Send an HTTP GET request and get Data</button>
+<table id="table">
+
+</table>
+</body>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2nnTwxI_6v6FgZQ_HYALbkWsL3qhFjT4">
+    </script>
+
+</html>
