@@ -1,0 +1,7 @@
+Crud
+
+
+INSERT INTO `persons`(`nombre`, `descripcion`, `precio`) VALUES ("pan de centeno","blah blah",7);
+
+
+
